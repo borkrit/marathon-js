@@ -47,7 +47,8 @@ function changeHP (count, person){
     if(person.damageHP < count){
         person.damageHP = 0;
         $btn.disabled = true; 
-        $randonBtn   
+        $randonBtn.disabled = true; 
+        alert("Бедный "+ person.name + " проиграл"); 
     }else{
         person.damageHP -=count;
 
