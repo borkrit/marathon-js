@@ -20,8 +20,17 @@ const enemy = {
 $btn.addEventListener('click', ()=>{
     changeHP(random(15), enemy);
     changeHP(random(15), character);
-    luckyBtn();
 
+    $randonBtn.disabled = false;
+
+});
+
+$randonBtn.addEventListener('click', ()=>{
+    changeHP(random(30), enemy);
+    changeHP(random(30), character);
+   
+    console.log("wow luck shot");
+    $randonBtn.disabled = true;
 });
 
 function init (){
@@ -61,19 +70,6 @@ function random (num){
    return Math.ceil(Math.random()*num);
 }
 
-function luckyBtn(){
-    
-    $randonBtn.disabled = false;
 
-    $randonBtn.addEventListener('click', ()=>{
-        changeHP(random(30), enemy);
-        changeHP(random(30), character);
-       
-        console.log("wow luck shot");
-
-        $randonBtn.disabled = true;
-    });
-    
-}
 
 init();
