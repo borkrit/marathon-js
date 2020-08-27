@@ -75,7 +75,7 @@ function renderHP(){
     this.renderProgressbarHP();
 }
 
-function changeHP (count,per){
+function changeHP (count){
    
     this.HP.current -=count;
 
