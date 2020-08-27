@@ -22,6 +22,7 @@ const character = {
     changeHP:changeHP,
 }
 
+
 const enemy = {
     name: "Charmander",
     HP:{
@@ -74,12 +75,11 @@ function renderHP(){
     this.renderProgressbarHP();
 }
 
-function changeHP (count){
-
-    
+function changeHP (count,per){
+   
     this.HP.current -=count;
 
-    const log = this === enemy ? generateLog(this, character, count, this.HP.default, this.HP.current) : generateLog(this, enemy,count, this.HP.default, this.HP.current);
+    const log = this === enemy ? generateLog(this, character, count) : generateLog(this, enemy,count);
     
     createT(log)
     
@@ -106,20 +106,21 @@ function random (num){
    return Math.ceil(Math.random()*num);
 }
 
-function generateLog(firstPerson,secondPerson,count,def,cur){
-   
+function generateLog(firstPerson,secondPerson,count){
+   const { HP:{default:def, current}, name } = firstPerson ;
+   const { name:nameSecondPerson } = secondPerson
 
     const logs = [
-        `${firstPerson.name} вспомнил что-то важное, но неожиданно ${secondPerson.name}, не помня себя от испуга, ударил в предплечье врага. ${-count} урона [${cur} / ${def}]`,
-        `${firstPerson.name}поперхнулся, и за это ${secondPerson.name} с испугу приложил прямой удар коленом в лоб врага. ${-count} урона [${cur} / ${def}]`,
-        `${firstPerson.name} забылся, но в это время наглый ${secondPerson.name}, приняв волевое решение, неслышно подойдя сзади, ударил. ${-count} урона  [${cur} / ${def}]`,
-        `${firstPerson.name} пришел в себя, но неожиданно ${secondPerson.name} случайно нанес мощнейший удар. ${-count} урона  [${cur} / ${def}]`,
-        `${firstPerson.name} поперхнулся, но в это время ${secondPerson.name} нехотя раздробил кулаком \<вырезанно цензурой\> противника. ${-count} урона  [${cur} / ${def}]`,
-        `${firstPerson.name} удивился, а ${secondPerson.name} пошатнувшись влепил подлый удар. ${-count} урона  [${cur} / ${def}]`,
-        `${firstPerson.name} высморкался, но неожиданно ${secondPerson.name} провел дробящий удар. ${-count} урона [${cur} / ${def}]`,
-        `${firstPerson.name} пошатнулся, и внезапно наглый ${secondPerson.name} беспричинно ударил в ногу противника ${-count} урона  [${cur} / ${def}]`,
-        `${firstPerson.name} расстроился, как вдруг, неожиданно ${secondPerson.name} случайно влепил стопой в живот соперника. ${-count} урона [${cur} / ${def}]`,
-        `${firstPerson.name} пытался что-то сказать, но вдруг, неожиданно ${secondPerson.name} со скуки, разбил бровь сопернику. ${-count} урона  [${cur} / ${def}]`
+        `${name} вспомнил что-то важное, но неожиданно ${nameSecondPerson}, не помня себя от испуга, ударил в предплечье врага. ${-count} урона [${current} / ${def}]`,
+        `${name}поперхнулся, и за это ${nameSecondPerson} с испугу приложил прямой удар коленом в лоб врага. ${-count} урона [${current} / ${def}]`,
+        `${name} забылся, но в это время наглый ${nameSecondPerson}, приняв волевое решение, неслышно подойдя сзади, ударил. ${-count} урона  [${current} / ${def}]`,
+        `${name} пришел в себя, но неожиданно ${nameSecondPerson} случайно нанес мощнейший удар. ${-count} урона  [${current} / ${def}]`,
+        `${name} поперхнулся, но в это время ${nameSecondPerson} нехотя раздробил кулаком \<вырезанно цензурой\> противника. ${-count} урона  [${current} / ${def}]`,
+        `${name} удивился, а ${nameSecondPerson} пошатнувшись влепил подлый удар. ${-count} урона  [${current} / ${def}]`,
+        `${name} высморкался, но неожиданно ${nameSecondPerson} провел дробящий удар. ${-count} урона [${current} / ${def}]`,
+        `${name} пошатнулся, и внезапно наглый ${nameSecondPerson} беспричинно ударил в ногу противника ${-count} урона  [${current} / ${def}]`,
+        `${name} расстроился, как вдруг, неожиданно ${nameSecondPerson} случайно влепил стопой в живот соперника. ${-count} урона [${current} / ${def}]`,
+        `${name} пытался что-то сказать, но вдруг, неожиданно ${nameSecondPerson} со скуки, разбил бровь сопернику. ${-count} урона  [${current} / ${def}]`
     ];
     
     return logs[random(logs.length-1)];
