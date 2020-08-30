@@ -3,8 +3,10 @@ function $getElId(id){
 }
 
 const $divLog = $getElId("log")
+const $countButton = $getElId("count-button")
 const $btn = $getElId("btn-kick");
 const $randonBtn = $getElId("btn-kick-random");
+
 
 const character = {
     name: "Pikachu",
@@ -37,24 +39,45 @@ const enemy = {
     renderHP:renderHP,
     changeHP:changeHP,    
 }
-
+let firstKik = countClick(5);
+let secondKik = countClick(2);
 $btn.addEventListener('click', ()=>{
     
     enemy.changeHP(random(15));
     character.changeHP(random(15));
 
-    $randonBtn.disabled = false;
-
+    
+    
+    firstKik(5,$btn);
 });
 
 $randonBtn.addEventListener('click', ()=>{
 
-    enemy.changeHP(random(30));
-    character.changeHP(random(30));
+    enemy.changeHP(random(50));
+    character.changeHP(random(50));
    
-    console.log("wow luck shot");
-    $randonBtn.disabled = true;
+    console.log(`wow luck shot  `);
+    
+    secondKik(2,$randonBtn);
+   
+    
 });
+function countClick(countCli){
+    let count = countCli;
+     
+    return function(max = 0, btn){  
+        
+        if( count == 1){
+             let finishCount = ( `Удары  ${btn.innerText}  закончились  ${count-1} из ${max}`);    
+            btn.disabled = true;
+            createT(finishCount,$countButton);
+        }else{
+            count -= 1;
+             let clickCount = `Ударов  ${btn.innerText}  осталось  ${count} из  ${max} `;
+            createT(clickCount,$countButton);
+        }
+    }
+}
 
 function init (){
     console.log("start game");    
@@ -81,7 +104,7 @@ function changeHP (count){
 
     const log = this === enemy ? generateLog(this, character, count) : generateLog(this, enemy,count);
     
-    createT(log)
+    createT(log,$divLog)
     
     if(this.HP.current < count){
         const $pLog = document.createElement('p');
@@ -96,10 +119,10 @@ function changeHP (count){
 
 }
 
-function createT(log){
+function createT(log,$parentEl){
     const $pLog = document.createElement('p');
     $pLog.innerText =log;
-    $divLog.insertBefore($pLog, $divLog.children[0]);
+    $parentEl.insertBefore($pLog, $parentEl.children[0]);
 }
 
 function random (num){
