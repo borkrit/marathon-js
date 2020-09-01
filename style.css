@@ -42,6 +42,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .playground {
@@ -477,12 +478,25 @@ h1 {
     background: rgb(93, 219, 93);
    border-radius: 20px;
    max-width: 750px;
-   max-height:250px;
+   max-height:220px;
     border:3px solid #8bf500;
     margin: auto;
     overflow: scroll;
     overflow-x: hidden;
 }
+#count-button{
+    margin-left: 7px;
+    max-height:100px;
+    border:3px solid orange;
+    margin: auto;
+    overflow: scroll;
+    overflow-x: hidden;
+    background: rgb(163, 212, 163);
+   border-radius: 10px ;
+   padding: 3px;
+}
+
+
 .color{
     color: #d20000;
 }
