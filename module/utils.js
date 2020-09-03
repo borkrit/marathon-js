@@ -1,5 +1,5 @@
-function random (num){
-    return Math.ceil(Math.random()*num);
+function random (min,max){
+    return Math.ceil(Math.random(min)*max);
 }
 
 export default random;

@@ -5,20 +5,30 @@ function $getElId(id){
 
 const $countButton = $getElId("count-button");
 
-function countClick(countCli){
+
+function countClick(countCli , el){
     
-     
-    return function(max = 0, btn){  
-        
-        if( countCli == 1){
-             let finishCount = ( `Удары  ${btn.innerText}  закончились  ${countCli-1} из ${max}`);    
-            btn.disabled = true;
-            createT(finishCount,$countButton);
-        }else{
-            countCli --;
-             let clickCount = `Ударов  ${btn.innerText}  осталось  ${countCli} из  ${max} `;
-            createT(clickCount,$countButton);
+     const innerText = el.innerText;
+     el.innerText = `${innerText} (${countCli})`;
+    return function(){  
+        countCli--;
+        if(countCli === 0){
+            el.disabled = true;
         }
+        el.innerText = `${innerText} (${countCli})`;
+        return countCli;
+
+
+
+        // if( countCli == 1){
+        //      let finishCount = ( `Удары  ${btn.innerText}  закончились  ${countCli-1} из ${max}`);    
+        //     btn.disabled = true;
+        //     createT(finishCount,$countButton);
+        // }else{
+        //     countCli --;
+        //      let clickCount = `Ударов  ${btn.innerText}  осталось  ${countCli} из  ${max} `;
+        //     createT(clickCount,$countButton);
+        // }
     }
 }
 
@@ -28,4 +38,4 @@ function createT(log,$parentEl){
     $parentEl.insertBefore($pLog, $parentEl.children[0]);
 }
 
-export default countClick;
+export  { countClick, $getElId }

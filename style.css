@@ -43,6 +43,7 @@ body {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    flex-direction: column;
 }
 
 .playground {
@@ -277,6 +278,7 @@ body {
     outline: none !important;
     cursor: pointer;
     font-size: 18px;
+    margin: 2px;
 
 }
 .button:after {
