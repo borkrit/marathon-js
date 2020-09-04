@@ -1,71 +1,110 @@
 import Pokemon from "./module/pokemon.js"
-import countClick from "./module/countClick.js"
+import { countClick , $getElId } from "./module/countClick.js"
 import random from "./module/utils.js"
+import { pokemons } from "./module/pokemons.js"
 
-function $getElId(id){
-    return document.getElementById(id);
-}
+
 const $divLog = $getElId("log")
 
-const $btn = $getElId("btn-kick");
-const $randonBtn = $getElId("btn-kick-random");
+// const $btn = $getElId("btn-kick");
+// const $randonBtn = $getElId("btn-kick-random");
+const $control = document.querySelector('.control')
+const $elImg = $getElId('img-player1');
+const $namePerson = $getElId('name-player1');
+const $elImg2 = $getElId('img-player2');
+const $namePerson2 = $getElId('name-player2');
+
+const resbut= $getElId('resbut');
 
 
+
+
+
+function generatePerson(){
+     return pokemons[random(0,pokemons.length-1)]
+} 
 
 const player1 = new Pokemon ({
-    name:'Pikachy', 
-    HP:100,
-    type: 'electro',
-    selector: 'character',
+   ...generatePerson(),
+
+    selector: 'player1',
+    
 });
+
 
 const player2 = new Pokemon ({
-    name:'Charmander', 
-    HP:100,
-    type: 'fire',
-    selector: 'enemy',
+    ...generatePerson(),
+    selector: 'player2',
 });
         
-console.log(player1);
-console.log(player2);   
 
-
-
-let firstKik = countClick(5);
-let secondKik = countClick(2);
-
-$btn.addEventListener('click', ()=>{
+player1.attacks.forEach(item =>{
+ 
+    const $btnAttacs = document.createElement('button');
+    $btnAttacs.classList.add('button');
+    $btnAttacs.innerText = item.name;
+     const $btnCount = countClick(item.maxCount,$btnAttacs )
+    $btnAttacs.addEventListener('click', ()=>{
+      
+        player2.changeHP(random(item.minDamage,item.maxDamage), function(count){
+            console.log("  hit on:",count)
+        });
+        $btnCount();
+    })
+    $control.appendChild($btnAttacs);
+    $elImg.src=player1.img
+    $namePerson.innerText = player1.name;
     
-    player1.changeHP(random(20), function(count){
-        console.log(" The Enemy hit on:",count)
-    });
-    player2.changeHP(random(20),function(count){
-        console.log("The Character hit on :",count)
-    });
+})
+
+
+player2.attacks.forEach(item =>{
+ 
+    const $btnAttacs = document.createElement('button');
+    $btnAttacs.classList.add('button');
+    $btnAttacs.innerText = item.name;
+    const $btnCount = countClick(item.maxCount,$btnAttacs )
+    $btnAttacs.addEventListener('click', ()=>{
+        // console.log(item.name +" "+ item.maxCount + "s"+ random(item.minDamage,item.maxDamage));
+        player1.changeHP(random(item.minDamage,item.maxDamage), function(count){
+            console.log(" The Enemy hit on:",count)
+        });
+        $btnCount();
+    })
+    $control.appendChild($btnAttacs);
     
-    firstKik(5,$btn);
-});
+    $elImg2.src=player2.img
+    $namePerson2.innerText = player2.name;
+})
 
-$randonBtn.addEventListener('click', ()=>{
+// let firstKik = countClick(5);
+// let secondKik = countClick(2);
 
-    player1.changeHP(random(50), function(count){
-        console.log("The Enemy hit on super damage :",count)
-    });
-    player2.changeHP(random(50),function(count){
-        console.log("The Character hit on super damage :",count)
-    });
+// $btn.addEventListener('click', ()=>{
+    
+//     player1.changeHP(random(item.minDamage,item.maxDamage), function(count){
+//         console.log(" The Enemy hit on:",count)
+//     });
+//     player2.changeHP(random(20),function(count){
+//         console.log("The Character hit on :",count)
+//     });
+    
+//     firstKik(5,$btn);
+// });
 
-    secondKik(2,$randonBtn);    
-});
+// $randonBtn.addEventListener('click', ()=>{
+
+//     player1.changeHP(random(50), function(count){
+//         console.log("The Enemy hit on super damage :",count)
+//     });
+//     player2.changeHP(random(50),function(count){
+//         console.log("The Character hit on super damage :",count)
+//     });
+
+//     secondKik(2,$randonBtn);    
+// });
 
 
-
-
-// function createT(log,$parentEl){
-//     const $pLog = document.createElement('p');
-//     $pLog.innerText =log;
-//     $parentEl.insertBefore($pLog, $parentEl.children[0]);
-// }
 
 
 
@@ -89,3 +128,8 @@ function generateLog(firstPerson,secondPerson,count){
     return logs[random(logs.length-1)];
 }
 
+
+resbut.addEventListener('click', ()=>{
+    location.reload();
+}
+);

@@ -2,18 +2,21 @@ class Selector {
     constructor(name){
         this.elHP = document.getElementById(`health-${name}`);
         this.elProgressbar = document.getElementById(`progressbar-${name}`);
+        this.img = document.getElementById(`img-${name}`);
+
     }
 }
 
 class Pokemon extends Selector {
-    constructor({name, HP, type, selector}){
+    constructor({name, hp, type,img, attacks=[], selector}){
         super(selector);
         this.name = name;
-        this.HP={
-            current: HP,
-            default: HP
+        this.hp = {
+            current: hp,
+            default: hp
         };
-
+        this.attacks = attacks;
+        this.img = img;
         this.type = type;
         this.renderHP();
        
@@ -21,12 +24,12 @@ class Pokemon extends Selector {
 
     changeHP = (count, callback) =>{
    
-        this.HP.current -=count;
+        this.hp.current -=count;
         // createT(log,$divLog)
         console.log(count)
-        if(this.HP.current <= count){
+        if(this.hp.current <= 0){
             // const $pLog = document.createElement('p');
-            this.HP.current = 0;
+            this.hp.current = 0;
             
             alert("Бедный "+ this.name + " проиграл"); 
      
@@ -42,12 +45,12 @@ class Pokemon extends Selector {
     }
 
     renderProgressbarHP = () =>{
-        this.elProgressbar.style.width = this.HP.current + "%"
+        this.elProgressbar.style.width = this.hp.current + "%"
     
     }
       
     renderHPLife = ()=>{
-        this.elHP.innerText = this.HP.current + "/" + this.HP.default;
+        this.elHP.innerText = this.hp.current + "/" + this.hp.default;
     }
     
     
