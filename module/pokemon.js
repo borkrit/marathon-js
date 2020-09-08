@@ -1,3 +1,4 @@
+
 class Selector {
     constructor(name){
         this.elHP = document.getElementById(`health-${name}`);
@@ -22,11 +23,11 @@ class Pokemon extends Selector {
        
     }
 
-    changeHP = (count, callback) =>{
+    changeHP = async (count, callback) =>{
    
         this.hp.current -=count;
         // createT(log,$divLog)
-        console.log(count)
+        console.log(count + "s")
         if(this.hp.current <= 0){
             // const $pLog = document.createElement('p');
             this.hp.current = 0;
