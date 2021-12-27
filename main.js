@@ -2,7 +2,7 @@ import Pokemon from "./module/pokemon.js"
 import { countClick , $getElId } from "./module/countClick.js"
 import random from "./module/utils.js"
 import getFight from "./module/get.js"
-// import { pokemons } from "./module/pokemons.js"
+import { pokemons } from "./module/pokemons.js"
 
 
 const $divLog = $getElId("log")
